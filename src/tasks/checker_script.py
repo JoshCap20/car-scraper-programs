@@ -57,9 +57,9 @@ def find_best_deal(mileage_threshold: int):
         EmailClient.send_email(message=message, subject=subject)
 
         if best_deal.price + best_deal.estimated_transport_fee <= 25000:
-            SMSClient.send_sms(message="[REBATE ELGIBILE] " + subject)
+            SMSClient.send_sms(msg="[REBATE ELGIBILE] " + subject)
         elif best_deal.price <= 25000:
-            SMSClient.send_sms(message="[SUB 25K] " + subject)
+            SMSClient.send_sms(msg="[SUB 25K] " + subject)
 
     else:
         print("No deals found within the mileage threshold.")

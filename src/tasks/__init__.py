@@ -1,0 +1,1 @@
+from .checker_script import find_best_deal
