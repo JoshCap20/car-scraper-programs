@@ -1,0 +1,4 @@
+from .env import getenv
+
+AZURE_EMAIL_KEY = getenv("AZURE_EMAIL_CONNECTION_KEY")
+AZURE_SMS_KEY = getenv("AZURE_SMS_CONNECTION_KEY")
