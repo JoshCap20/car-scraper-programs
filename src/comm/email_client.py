@@ -4,7 +4,7 @@ from ..config import AZURE_EMAIL_KEY
 
 class AzureEmailCommunicationClient:
     @property
-    def client() -> EmailClient:
+    def client(self) -> EmailClient:
         return EmailClient.from_connection_string(AZURE_EMAIL_KEY)
 
     def send_email(
