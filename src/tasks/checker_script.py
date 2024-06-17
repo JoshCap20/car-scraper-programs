@@ -54,7 +54,9 @@ def find_best_deal(mileage_threshold: int):
         subject = (
             f"Tesla Alert for ${best_deal.price} {best_deal.year} {best_deal.miles}mi"
         )
-        EmailClient.send_email(message=message, subject=subject)
+        client = EmailClient()
+        
+        client.send_email(message=message, subject=subject)
 
         if best_deal.price + best_deal.estimated_transport_fee <= 25000:
             SMSClient.send_sms(msg="[REBATE ELGIBILE] " + subject)
@@ -75,14 +77,14 @@ def job():
     )
     find_best_deal(mileage_threshold)
 
+if __name__ == "__main__":
+    # Schedule the job every 20 minutes
+    job()
+    schedule.every(20).minutes.do(job)
 
-# Schedule the job every 20 minutes
-job()
-schedule.every(20).minutes.do(job)
+    print("Starting Tesla Deal Finder CLI...")
 
-print("Starting Tesla Deal Finder CLI...")
-
-# Keep the script running
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    # Keep the script running
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

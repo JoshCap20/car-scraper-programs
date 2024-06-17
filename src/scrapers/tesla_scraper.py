@@ -1,25 +1,6 @@
 from .base import DynamicScraper
 from bs4 import BeautifulSoup
-from dataclasses import dataclass
-
-@dataclass
-class Tesla:
-    year: str
-    model: str
-    price: float
-    miles: str
-    location: str
-    estimated_monthly_payment: float
-    estimated_transport_fee: float
-    range: float
-    top_speed: float
-    acceleration: float
-    color: str
-    interior: str
-    wheels: str
-    full_self_driving: bool
-    reported_accidents: bool
-    
+from .models import Tesla
 
 class TeslaScraper(DynamicScraper):
     teslas: list[Tesla]
@@ -111,15 +92,15 @@ class TeslaScraper(DynamicScraper):
             reported_accidents=reported_accidents
         )
             
-if __name__ == '__main__':
-    scraper = TeslaScraper()
-    scraper.parse()
-    print(scraper.teslas)
-    print(f"Found {len(scraper.teslas)} Teslas!")
-    # check for repeats
-    repeats = 0
-    for i, tesla in enumerate(scraper.teslas):
-        for j in range(i+1, len(scraper.teslas)):
-            if tesla.price == scraper.teslas[j].price and tesla.miles == scraper.teslas[j].miles:
-                repeats += 1
-    print(f"Found {repeats} repeated Teslas!")
+# if __name__ == '__main__':
+#     scraper = TeslaScraper()
+#     scraper.parse()
+#     print(scraper.teslas)
+#     print(f"Found {len(scraper.teslas)} Teslas!")
+#     # check for repeats
+#     repeats = 0
+#     for i, tesla in enumerate(scraper.teslas):
+#         for j in range(i+1, len(scraper.teslas)):
+#             if tesla.price == scraper.teslas[j].price and tesla.miles == scraper.teslas[j].miles:
+#                 repeats += 1
+#     print(f"Found {repeats} repeated Teslas!")

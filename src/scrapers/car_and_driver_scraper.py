@@ -1,26 +1,14 @@
 import re
 from .base import Scraper
-from dataclasses import dataclass
-from bs4 import BeautifulSoup
+from .models import Car, Source
 import csv
 
-@dataclass
-class Car:
-    year: int
-    make: str
-    model: str
-    price: int
-    miles: int
-    # location: str
-    # color: str
-    # wheels: str
-    rating: str
-    
-class LocalCarScraper(Scraper):
+
+class CarAndDriverScraper(Scraper):
     cars: list[Car]
     URL = "https://shopping.caranddriver.com/used-cars-for-sale/listings/year-2020-2024/price-below-30000/location-charlotte-nc/?mileageHigh=100000&searchRadius=100"
     
-    def __init__(self, page: int = 1, max_pages = 0):
+    def __init__(self, page: int = 1, max_pages: int = 0):
         super().__init__(url=self.URL)
         self.page = page
         self.max_pages = max_pages
@@ -74,6 +62,7 @@ class LocalCarScraper(Scraper):
                 rating=rating,
                 # color="",
                 # wheels="",
+                source=Source.CAR_AND_DRIVER
             )
             print(car)
             self.cars.append(car)
@@ -83,7 +72,7 @@ class LocalCarScraper(Scraper):
     @staticmethod
     def output_to_csv(cars):
         # export to csv
-        with open('cars.csv', mode='w') as file:
+        with open('car_and_driver_cars.csv', mode='w') as file:
             writer = csv.writer(file)
             writer.writerow(["Year", "Make", "Model", "Price", "Miles", "Rating"])
             for car in cars:
@@ -97,9 +86,8 @@ class LocalCarScraper(Scraper):
             return year
         return None
     
-if __name__ == "__main__":
-    scraper = LocalCarScraper(max_pages=0)
-    scraper.run()
+# if __name__ == "__main__":
+#     scraper = CarAndDriverScraper(max_pages=0)
+#     scraper.run()
     # print(scraper.cleaned_data)
-    print(scraper.cars)
     # print(scraper.cars)

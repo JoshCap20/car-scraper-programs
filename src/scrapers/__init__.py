@@ -1,3 +1,3 @@
 from .base import Scraper, DynamicScraper
-from .local_car_scraper import LocalCarScraper
+from .car_and_driver_scraper import CarAndDriverScraper
 from .tesla_scraper import TeslaScraper
